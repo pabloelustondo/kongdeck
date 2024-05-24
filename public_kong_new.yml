@@ -1,0 +1,1229 @@
+_format_version: "3.0"
+services:
+- connect_timeout: 60000
+  enabled: true
+  host: fcpc_decision_service
+  name: fcpc_decision_service
+  path: /getDecision
+  port: 8080
+  protocol: http
+  read_timeout: 60000
+  retries: 5
+  routes:
+  - https_redirect_status_code: 426
+    name: fcpc_decision_service
+    path_handling: v0
+    paths:
+    - /fxDecision
+    plugins:
+    - config:
+        allow:
+        - fx_decision
+        deny: null
+        hide_groups_header: false
+      enabled: true
+      name: acl
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    - config:
+        echo_downstream: true
+        generator: uuid
+        header_name: X-Request-ID
+      enabled: true
+      name: correlation-id
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    - config:
+        content_type: application/json
+        custom_fields_by_lua: null
+        flush_timeout: null
+        headers: null
+        http_endpoint: http://logstash:7800/kong/extkong
+        keepalive: 1000
+        method: POST
+        queue:
+          initial_retry_delay: 0.01
+          max_batch_size: 1
+          max_bytes: null
+          max_coalescing_delay: 1
+          max_entries: 10000
+          max_retry_delay: 60
+          max_retry_time: 60
+        queue_size: null
+        retry_count: null
+        timeout: 1000
+      enabled: true
+      name: http-log
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    - config:
+        accept_http_if_already_terminated: false
+        anonymous: null
+        auth_header_name: authorization
+        enable_authorization_code: false
+        enable_client_credentials: true
+        enable_implicit_grant: false
+        enable_password_grant: false
+        global_credentials: false
+        hide_credentials: true
+        mandatory_scope: false
+        persistent_refresh_token: false
+        pkce: lax
+        provision_key: weAK8GaVkeo1pZ9o5MUU5eSHDcrygLP4
+        refresh_token_ttl: 1209600
+        reuse_refresh_token: false
+        scopes: null
+        token_expiration: 28800
+      enabled: true
+      name: oauth2
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+      - ws
+      - wss
+    - config:
+        day: null
+        error_code: 429
+        error_message: API rate limit exceeded
+        fault_tolerant: true
+        header_name: null
+        hide_client_headers: false
+        hour: null
+        limit_by: consumer
+        minute: null
+        month: null
+        path: null
+        policy: local
+        redis_database: 0
+        redis_host: null
+        redis_password: null
+        redis_port: 6379
+        redis_server_name: null
+        redis_ssl: false
+        redis_ssl_verify: false
+        redis_timeout: 2000
+        redis_username: null
+        second: 5
+        sync_rate: -1
+        year: null
+      enabled: true
+      name: rate-limiting
+      ordering:
+        before:
+          access:
+          - oauth2
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    - config:
+        add:
+          headers: []
+          json: []
+          json_types: []
+        append:
+          headers:
+          - X-XSS-Protection:1;mode=block
+          - Strict-Transport-Security:max-age=31536000
+          - 'Content-Security-Policy: default-src https:'
+          - 'cache-control: no-cache'
+          - X-Frame-Options:SAMEORIGIN
+          - Accept-Encoding:application/json
+          json: []
+          json_types: []
+        remove:
+          headers: []
+          json: []
+        rename:
+          headers: []
+        replace:
+          headers: []
+          json: []
+          json_types: []
+      enabled: true
+      name: response-transformer
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    preserve_host: false
+    protocols:
+    - http
+    - https
+    regex_priority: 0
+    request_buffering: true
+    response_buffering: true
+    strip_path: true
+  write_timeout: 60000
+- connect_timeout: 60000
+  enabled: true
+  host: internal-dev.cibcfxm.com
+  name: fxc_service_rate_segments
+  path: /v1/rateSegment
+  port: 443
+  protocol: https
+  read_timeout: 60000
+  retries: 5
+  routes:
+  - https_redirect_status_code: 426
+    name: fxc_service_rate_segments
+    path_handling: v0
+    paths:
+    - /fxc/rateSegments
+    plugins:
+    - config:
+        allow:
+        - fxc_service
+        deny: null
+        hide_groups_header: false
+      enabled: true
+      name: acl
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    - enabled: true
+      name: consumer-resolver
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    - config:
+        echo_downstream: true
+        generator: uuid
+        header_name: X-Request-ID
+      enabled: true
+      name: correlation-id
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    - config:
+        content_type: application/json
+        custom_fields_by_lua: null
+        flush_timeout: null
+        headers: null
+        http_endpoint: http://logstash:7800/kong/extkong
+        keepalive: 1000
+        method: POST
+        queue:
+          initial_retry_delay: 0.01
+          max_batch_size: 1
+          max_bytes: null
+          max_coalescing_delay: 1
+          max_entries: 10000
+          max_retry_delay: 60
+          max_retry_time: 60
+        queue_size: null
+        retry_count: null
+        timeout: 1000
+      enabled: true
+      name: http-log
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    - config:
+        anonymous: null
+        hide_credentials: true
+        key_in_body: false
+        key_in_header: true
+        key_in_query: true
+        key_names:
+        - authorization
+        run_on_preflight: true
+      enabled: true
+      name: key-auth
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+      - ws
+      - wss
+    - config:
+        day: null
+        error_code: 429
+        error_message: API rate limit exceeded
+        fault_tolerant: true
+        header_name: null
+        hide_client_headers: false
+        hour: null
+        limit_by: consumer
+        minute: null
+        month: null
+        path: null
+        policy: local
+        redis_database: 0
+        redis_host: null
+        redis_password: null
+        redis_port: 6379
+        redis_server_name: null
+        redis_ssl: false
+        redis_ssl_verify: false
+        redis_timeout: 2000
+        redis_username: null
+        second: 4
+        sync_rate: -1
+        year: null
+      enabled: true
+      name: rate-limiting
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    - config:
+        add:
+          headers: []
+          json: []
+          json_types: []
+        append:
+          headers:
+          - X-XSS-Protection:1;mode=block
+          - Strict-Transport-Security:max-age=31536000
+          - 'Content-Security-Policy: default-src https:'
+          - 'cache-control: no-cache'
+          - X-Frame-Options:SAMEORIGIN
+          - Accept-Encoding:application/json
+          json: []
+          json_types: []
+        remove:
+          headers: []
+          json: []
+        rename:
+          headers: []
+        replace:
+          headers: []
+          json: []
+          json_types: []
+      enabled: true
+      name: response-transformer
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    preserve_host: false
+    protocols:
+    - http
+    - https
+    regex_priority: 0
+    request_buffering: true
+    response_buffering: true
+    strip_path: true
+  write_timeout: 60000
+- connect_timeout: 60000
+  enabled: true
+  host: geo_locator
+  name: geo
+  port: 8080
+  protocol: http
+  read_timeout: 60000
+  retries: 5
+  routes:
+  - https_redirect_status_code: 426
+    name: geo
+    path_handling: v0
+    paths:
+    - /geo
+    plugins:
+    - config:
+        allow:
+        - rate_inquiry
+        deny: null
+        hide_groups_header: false
+      enabled: true
+      name: acl
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    - config:
+        echo_downstream: true
+        generator: uuid
+        header_name: X-Request-ID
+      enabled: true
+      name: correlation-id
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    - config:
+        content_type: application/json
+        custom_fields_by_lua: null
+        flush_timeout: null
+        headers: null
+        http_endpoint: http://logstash:7800/kong/extkong
+        keepalive: 1000
+        method: POST
+        queue:
+          initial_retry_delay: 0.01
+          max_batch_size: 1
+          max_bytes: null
+          max_coalescing_delay: 1
+          max_entries: 10000
+          max_retry_delay: 60
+          max_retry_time: 60
+        queue_size: null
+        retry_count: null
+        timeout: 1000
+      enabled: true
+      name: http-log
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    - config:
+        anonymous: null
+        hide_credentials: true
+        key_in_body: false
+        key_in_header: true
+        key_in_query: true
+        key_names:
+        - authorization
+        run_on_preflight: true
+      enabled: true
+      name: key-auth
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+      - ws
+      - wss
+    - config:
+        day: null
+        error_code: 429
+        error_message: API rate limit exceeded
+        fault_tolerant: true
+        header_name: null
+        hide_client_headers: false
+        hour: null
+        limit_by: consumer
+        minute: null
+        month: null
+        path: null
+        policy: local
+        redis_database: 0
+        redis_host: null
+        redis_password: null
+        redis_port: 6379
+        redis_server_name: null
+        redis_ssl: false
+        redis_ssl_verify: false
+        redis_timeout: 2000
+        redis_username: null
+        second: 32
+        sync_rate: -1
+        year: null
+      enabled: true
+      name: rate-limiting
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    - config:
+        add:
+          headers: []
+          json: []
+          json_types: []
+        append:
+          headers:
+          - X-XSS-Protection:1;mode=block
+          - Strict-Transport-Security:max-age=31536000
+          - 'Content-Security-Policy: default-src https:'
+          - 'cache-control: no-cache'
+          - X-Frame-Options:SAMEORIGIN
+          - Accept-Encoding:application/json
+          json: []
+          json_types: []
+        remove:
+          headers: []
+          json: []
+        rename:
+          headers: []
+        replace:
+          headers: []
+          json: []
+          json_types: []
+      enabled: true
+      name: response-transformer
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    preserve_host: false
+    protocols:
+    - http
+    - https
+    regex_priority: 0
+    request_buffering: true
+    response_buffering: true
+    strip_path: true
+  write_timeout: 60000
+- connect_timeout: 60000
+  enabled: true
+  host: health_service
+  name: kong_health
+  port: 8080
+  protocol: http
+  read_timeout: 60000
+  retries: 5
+  routes:
+  - https_redirect_status_code: 426
+    name: kong_health
+    path_handling: v0
+    paths:
+    - /health/status
+    plugins:
+    - config:
+        body: null
+        content_type: null
+        echo: false
+        message: '{status: Healthy}'
+        status_code: 200
+        trigger: null
+      enabled: true
+      name: request-termination
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    preserve_host: false
+    protocols:
+    - http
+    - https
+    regex_priority: 0
+    request_buffering: true
+    response_buffering: true
+    strip_path: true
+  write_timeout: 60000
+- connect_timeout: 60000
+  enabled: true
+  host: mcp
+  name: mcp
+  port: 8080
+  protocol: http
+  read_timeout: 60000
+  retries: 5
+  routes:
+  - https_redirect_status_code: 426
+    name: mcp
+    path_handling: v0
+    paths:
+    - /mcp/accept
+    plugins:
+    - config:
+        allow:
+        - mcp_rate_acceptance
+        deny: null
+        hide_groups_header: false
+      enabled: true
+      name: acl
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    - enabled: true
+      name: consumer-resolver
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    - config:
+        echo_downstream: true
+        generator: uuid
+        header_name: X-Request-ID
+      enabled: true
+      name: correlation-id
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    - config:
+        content_type: application/json
+        custom_fields_by_lua: null
+        flush_timeout: null
+        headers: null
+        http_endpoint: http://logstash:7800/kong/extkong
+        keepalive: 1000
+        method: POST
+        queue:
+          initial_retry_delay: 0.01
+          max_batch_size: 1
+          max_bytes: null
+          max_coalescing_delay: 1
+          max_entries: 10000
+          max_retry_delay: 60
+          max_retry_time: 60
+        queue_size: null
+        retry_count: null
+        timeout: 1000
+      enabled: true
+      name: http-log
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    - config:
+        anonymous: null
+        hide_credentials: true
+        key_in_body: false
+        key_in_header: true
+        key_in_query: true
+        key_names:
+        - authorization
+        run_on_preflight: true
+      enabled: true
+      name: key-auth
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+      - ws
+      - wss
+    - config:
+        day: null
+        error_code: 429
+        error_message: API rate limit exceeded
+        fault_tolerant: true
+        header_name: null
+        hide_client_headers: false
+        hour: null
+        limit_by: consumer
+        minute: null
+        month: null
+        path: null
+        policy: local
+        redis_database: 0
+        redis_host: null
+        redis_password: null
+        redis_port: 6379
+        redis_server_name: null
+        redis_ssl: false
+        redis_ssl_verify: false
+        redis_timeout: 2000
+        redis_username: null
+        second: 32
+        sync_rate: -1
+        year: null
+      enabled: true
+      name: rate-limiting
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    - config:
+        add:
+          headers: []
+          json: []
+          json_types: []
+        append:
+          headers:
+          - X-XSS-Protection:1;mode=block
+          - Strict-Transport-Security:max-age=31536000
+          - 'Content-Security-Policy: default-src https:'
+          - 'cache-control: no-cache'
+          - X-Frame-Options:SAMEORIGIN
+          - Accept-Encoding:application/json
+          json: []
+          json_types: []
+        remove:
+          headers: []
+          json: []
+        rename:
+          headers: []
+        replace:
+          headers: []
+          json: []
+          json_types: []
+      enabled: true
+      name: response-transformer
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    preserve_host: false
+    protocols:
+    - http
+    - https
+    regex_priority: 0
+    request_buffering: true
+    response_buffering: true
+    strip_path: true
+  write_timeout: 60000
+- connect_timeout: 60000
+  enabled: true
+  host: rate_inquiry_v2
+  name: rate_inquiry_v2
+  port: 8080
+  protocol: http
+  read_timeout: 60000
+  retries: 5
+  routes:
+  - https_redirect_status_code: 426
+    name: rate_inquiry_v2
+    path_handling: v0
+    paths:
+    - /v2/fx/rates
+    plugins:
+    - config:
+        allow:
+        - rate_inquiry
+        deny: null
+        hide_groups_header: false
+      enabled: true
+      name: acl
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    - config:
+        echo_downstream: true
+        generator: uuid
+        header_name: X-Request-ID
+      enabled: true
+      name: correlation-id
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    - config:
+        content_type: application/json
+        custom_fields_by_lua: null
+        flush_timeout: null
+        headers: null
+        http_endpoint: http://logstash:7800/kong/extkong
+        keepalive: 1000
+        method: POST
+        queue:
+          initial_retry_delay: 0.01
+          max_batch_size: 1
+          max_bytes: null
+          max_coalescing_delay: 1
+          max_entries: 10000
+          max_retry_delay: 60
+          max_retry_time: 60
+        queue_size: null
+        retry_count: null
+        timeout: 1000
+      enabled: true
+      name: http-log
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    - config:
+        anonymous: null
+        hide_credentials: true
+        key_in_body: false
+        key_in_header: true
+        key_in_query: true
+        key_names:
+        - authorization
+        run_on_preflight: true
+      enabled: true
+      name: key-auth
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+      - ws
+      - wss
+    - config:
+        day: null
+        error_code: 429
+        error_message: API rate limit exceeded
+        fault_tolerant: true
+        header_name: null
+        hide_client_headers: false
+        hour: null
+        limit_by: consumer
+        minute: null
+        month: null
+        path: null
+        policy: local
+        redis_database: 0
+        redis_host: null
+        redis_password: null
+        redis_port: 6379
+        redis_server_name: null
+        redis_ssl: false
+        redis_ssl_verify: false
+        redis_timeout: 2000
+        redis_username: null
+        second: 32
+        sync_rate: -1
+        year: null
+      enabled: true
+      name: rate-limiting
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    - config:
+        add:
+          headers: []
+          json: []
+          json_types: []
+        append:
+          headers:
+          - X-XSS-Protection:1;mode=block
+          - Strict-Transport-Security:max-age=31536000
+          - 'Content-Security-Policy: default-src https:'
+          - 'cache-control: no-cache'
+          - X-Frame-Options:SAMEORIGIN
+          - Accept-Encoding:application/json
+          json: []
+          json_types: []
+        remove:
+          headers: []
+          json: []
+        rename:
+          headers: []
+        replace:
+          headers: []
+          json: []
+          json_types: []
+      enabled: true
+      name: response-transformer
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    preserve_host: false
+    protocols:
+    - http
+    - https
+    regex_priority: 0
+    request_buffering: true
+    response_buffering: true
+    strip_path: true
+  write_timeout: 60000
+- connect_timeout: 60000
+  enabled: true
+  host: internal-dev.cibcfxm.com
+  name: sgc_card_activate
+  path: /v1/card/activate
+  port: 443
+  protocol: https
+  read_timeout: 60000
+  retries: 5
+  routes:
+  - https_redirect_status_code: 426
+    name: sgc_card_activate
+    path_handling: v0
+    paths:
+    - /card/activate
+    plugins:
+    - config:
+        allow:
+        - cards_service
+        deny: null
+        hide_groups_header: false
+      enabled: true
+      name: acl
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    - enabled: true
+      name: consumer-resolver
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    - config:
+        echo_downstream: true
+        generator: uuid
+        header_name: X-Request-ID
+      enabled: true
+      name: correlation-id
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    - config:
+        content_type: application/json
+        custom_fields_by_lua: null
+        flush_timeout: null
+        headers: null
+        http_endpoint: http://logstash:7800/kong/extkong
+        keepalive: 1000
+        method: POST
+        queue:
+          initial_retry_delay: 0.01
+          max_batch_size: 1
+          max_bytes: null
+          max_coalescing_delay: 1
+          max_entries: 10000
+          max_retry_delay: 60
+          max_retry_time: 60
+        queue_size: null
+        retry_count: null
+        timeout: 1000
+      enabled: true
+      name: http-log
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    - config:
+        anonymous: null
+        hide_credentials: true
+        key_in_body: false
+        key_in_header: true
+        key_in_query: true
+        key_names:
+        - authorization
+        run_on_preflight: true
+      enabled: true
+      name: key-auth
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+      - ws
+      - wss
+    - config:
+        day: null
+        error_code: 429
+        error_message: API rate limit exceeded
+        fault_tolerant: true
+        header_name: null
+        hide_client_headers: false
+        hour: null
+        limit_by: consumer
+        minute: null
+        month: null
+        path: null
+        policy: local
+        redis_database: 0
+        redis_host: null
+        redis_password: null
+        redis_port: 6379
+        redis_server_name: null
+        redis_ssl: false
+        redis_ssl_verify: false
+        redis_timeout: 2000
+        redis_username: null
+        second: 32
+        sync_rate: -1
+        year: null
+      enabled: true
+      name: rate-limiting
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    - config:
+        add:
+          body: []
+          headers: []
+          querystring:
+          - clientType:EXTERNAL
+        append:
+          body: []
+          headers: []
+          querystring: []
+        http_method: null
+        remove:
+          body: []
+          headers: []
+          querystring:
+          - clientType
+          - destination
+        rename:
+          body: []
+          headers: []
+          querystring: []
+        replace:
+          body: []
+          headers: []
+          querystring: []
+          uri: null
+      enabled: true
+      name: request-transformer
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    - config:
+        add:
+          headers: []
+          json: []
+          json_types: []
+        append:
+          headers:
+          - X-XSS-Protection:1;mode=block
+          - Strict-Transport-Security:max-age=31536000
+          - 'Content-Security-Policy: default-src https:'
+          - 'cache-control: no-cache'
+          - X-Frame-Options:SAMEORIGIN
+          - Accept-Encoding:application/json
+          json: []
+          json_types: []
+        remove:
+          headers: []
+          json: []
+        rename:
+          headers: []
+        replace:
+          headers: []
+          json: []
+          json_types: []
+      enabled: true
+      name: response-transformer
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    preserve_host: false
+    protocols:
+    - http
+    - https
+    regex_priority: 0
+    request_buffering: true
+    response_buffering: true
+    strip_path: true
+  write_timeout: 60000
+- connect_timeout: 60000
+  enabled: true
+  host: internal-dev.cibcfxm.com
+  name: sgc_card_status
+  path: /v1/card/info
+  port: 443
+  protocol: https
+  read_timeout: 60000
+  retries: 5
+  routes:
+  - https_redirect_status_code: 426
+    name: sgc_card_status
+    path_handling: v0
+    paths:
+    - /card/status
+    plugins:
+    - config:
+        allow:
+        - cards_service
+        deny: null
+        hide_groups_header: false
+      enabled: true
+      name: acl
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    - enabled: true
+      name: consumer-resolver
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    - config:
+        echo_downstream: true
+        generator: uuid
+        header_name: X-Request-ID
+      enabled: true
+      name: correlation-id
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    - config:
+        content_type: application/json
+        custom_fields_by_lua: null
+        flush_timeout: null
+        headers: null
+        http_endpoint: http://logstash:7800/kong/extkong
+        keepalive: 1000
+        method: POST
+        queue:
+          initial_retry_delay: 0.01
+          max_batch_size: 1
+          max_bytes: null
+          max_coalescing_delay: 1
+          max_entries: 10000
+          max_retry_delay: 60
+          max_retry_time: 60
+        queue_size: null
+        retry_count: null
+        timeout: 1000
+      enabled: true
+      name: http-log
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    - config:
+        anonymous: null
+        hide_credentials: true
+        key_in_body: false
+        key_in_header: true
+        key_in_query: true
+        key_names:
+        - authorization
+        run_on_preflight: true
+      enabled: true
+      name: key-auth
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+      - ws
+      - wss
+    - config:
+        day: null
+        error_code: 429
+        error_message: API rate limit exceeded
+        fault_tolerant: true
+        header_name: null
+        hide_client_headers: false
+        hour: null
+        limit_by: consumer
+        minute: null
+        month: null
+        path: null
+        policy: local
+        redis_database: 0
+        redis_host: null
+        redis_password: null
+        redis_port: 6379
+        redis_server_name: null
+        redis_ssl: false
+        redis_ssl_verify: false
+        redis_timeout: 2000
+        redis_username: null
+        second: 32
+        sync_rate: -1
+        year: null
+      enabled: true
+      name: rate-limiting
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    - config:
+        add:
+          body: []
+          headers: []
+          querystring:
+          - clientType:EXTERNAL
+        append:
+          body: []
+          headers: []
+          querystring: []
+        http_method: null
+        remove:
+          body: []
+          headers: []
+          querystring:
+          - clientType
+          - destination
+        rename:
+          body: []
+          headers: []
+          querystring: []
+        replace:
+          body: []
+          headers: []
+          querystring: []
+          uri: null
+      enabled: true
+      name: request-transformer
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    - config:
+        add:
+          headers: []
+          json: []
+          json_types: []
+        append:
+          headers:
+          - X-XSS-Protection:1;mode=block
+          - Strict-Transport-Security:max-age=31536000
+          - 'Content-Security-Policy: default-src https:'
+          - 'cache-control: no-cache'
+          - X-Frame-Options:SAMEORIGIN
+          - Accept-Encoding:application/json
+          json: []
+          json_types: []
+        remove:
+          headers: []
+          json: []
+        rename:
+          headers: []
+        replace:
+          headers: []
+          json: []
+          json_types: []
+      enabled: true
+      name: response-transformer
+      protocols:
+      - grpc
+      - grpcs
+      - http
+      - https
+    preserve_host: false
+    protocols:
+    - http
+    - https
+    regex_priority: 0
+    request_buffering: true
+    response_buffering: true
+    strip_path: true
+  write_timeout: 60000
