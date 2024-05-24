@@ -119,10 +119,10 @@ services:
         year: null
       enabled: true
       name: rate-limiting
-      ordering:
-        before:
-          access:
-          - oauth2
+      # ordering:
+      #   before:
+      #     access:
+      #     - oauth2
       protocols:
       - grpc
       - grpcs
@@ -184,25 +184,25 @@ services:
     paths:
     - /fxc/rateSegments
     plugins:
-    - config:
-        allow:
-        - fxc_service
-        deny: null
-        hide_groups_header: false
-      enabled: true
-      name: acl
-      protocols:
-      - grpc
-      - grpcs
-      - http
-      - https
-    - enabled: true
-      name: consumer-resolver
-      protocols:
-      - grpc
-      - grpcs
-      - http
-      - https
+    # - config:
+    #     allow:
+    #     - fxc_service
+    #     deny: null
+    #     hide_groups_header: false
+    #   enabled: true
+    #   name: acl
+    #   protocols:
+    #   - grpc
+    #   - grpcs
+    #   - http
+    #   - https
+    # - enabled: true
+    #   name: consumer-resolver
+    #   protocols:
+    #   - grpc
+    #   - grpcs
+    #   - http
+    #   - https
     - config:
         echo_downstream: true
         generator: uuid
@@ -537,25 +537,25 @@ services:
     paths:
     - /mcp/accept
     plugins:
-    - config:
-        allow:
-        - mcp_rate_acceptance
-        deny: null
-        hide_groups_header: false
-      enabled: true
-      name: acl
-      protocols:
-      - grpc
-      - grpcs
-      - http
-      - https
-    - enabled: true
-      name: consumer-resolver
-      protocols:
-      - grpc
-      - grpcs
-      - http
-      - https
+    # - config:
+    #     allow:
+    #     - mcp_rate_acceptance
+    #     deny: null
+    #     hide_groups_header: false
+    #   enabled: true
+    #   name: acl
+    #   protocols:
+    #   - grpc
+    #   - grpcs
+    #   - http
+    #   - https
+    # - enabled: true
+    #   name: consumer-resolver
+    #   protocols:
+    #   - grpc
+    #   - grpcs
+    #   - http
+    #   - https
     - config:
         echo_downstream: true
         generator: uuid
@@ -853,25 +853,25 @@ services:
     paths:
     - /card/activate
     plugins:
-    - config:
-        allow:
-        - cards_service
-        deny: null
-        hide_groups_header: false
-      enabled: true
-      name: acl
-      protocols:
-      - grpc
-      - grpcs
-      - http
-      - https
-    - enabled: true
-      name: consumer-resolver
-      protocols:
-      - grpc
-      - grpcs
-      - http
-      - https
+    # - config:
+    #     allow:
+    #     - cards_service
+    #     deny: null
+    #     hide_groups_header: false
+    #   enabled: true
+    #   name: acl
+    #   protocols:
+    #   - grpc
+    #   - grpcs
+    #   - http
+    #   - https
+    # - enabled: true
+    #   name: consumer-resolver
+    #   protocols:
+    #   - grpc
+    #   - grpcs
+    #   - http
+    #   - https
     - config:
         echo_downstream: true
         generator: uuid
@@ -1048,25 +1048,25 @@ services:
     paths:
     - /card/status
     plugins:
-    - config:
-        allow:
-        - cards_service
-        deny: null
-        hide_groups_header: false
-      enabled: true
-      name: acl
-      protocols:
-      - grpc
-      - grpcs
-      - http
-      - https
-    - enabled: true
-      name: consumer-resolver
-      protocols:
-      - grpc
-      - grpcs
-      - http
-      - https
+    # - config:
+    #     allow:
+    #     - cards_service
+    #     deny: null
+    #     hide_groups_header: false
+    #   enabled: true
+    #   name: acl
+    #   protocols:
+    #   - grpc
+    #   - grpcs
+    #   - http
+    #   - https
+    # - enabled: true
+    #   name: consumer-resolver
+    #   protocols:
+    #   - grpc
+    #   - grpcs
+    #   - http
+    #   - https
     - config:
         echo_downstream: true
         generator: uuid
