@@ -29,17 +29,6 @@ services:
       - http
       - https
     - config:
-        echo_downstream: true
-        generator: uuid
-        header_name: X-Request-ID
-      enabled: true
-      name: correlation-id
-      protocols:
-      - grpc
-      - grpcs
-      - http
-      - https
-    - config:
         accept_http_if_already_terminated: false
         anonymous: null
         auth_header_name: authorization
@@ -178,17 +167,6 @@ services:
     #   - http
     #   - https
     - config:
-        echo_downstream: true
-        generator: uuid
-        header_name: X-Request-ID
-      enabled: true
-      name: correlation-id
-      protocols:
-      - grpc
-      - grpcs
-      - http
-      - https
-    - config:
         anonymous: null
         hide_credentials: true
         key_in_body: false
@@ -300,17 +278,6 @@ services:
         hide_groups_header: false
       enabled: true
       name: acl
-      protocols:
-      - grpc
-      - grpcs
-      - http
-      - https
-    - config:
-        echo_downstream: true
-        generator: uuid
-        header_name: X-Request-ID
-      enabled: true
-      name: correlation-id
       protocols:
       - grpc
       - grpcs
@@ -479,17 +446,6 @@ services:
     #   - http
     #   - https
     - config:
-        echo_downstream: true
-        generator: uuid
-        header_name: X-Request-ID
-      enabled: true
-      name: correlation-id
-      protocols:
-      - grpc
-      - grpcs
-      - http
-      - https
-    - config:
         anonymous: null
         hide_credentials: true
         key_in_body: false
@@ -601,17 +557,6 @@ services:
         hide_groups_header: false
       enabled: true
       name: acl
-      protocols:
-      - grpc
-      - grpcs
-      - http
-      - https
-    - config:
-        echo_downstream: true
-        generator: uuid
-        header_name: X-Request-ID
-      enabled: true
-      name: correlation-id
       protocols:
       - grpc
       - grpcs
@@ -742,17 +687,6 @@ services:
     #   - grpcs
     #   - http
     #   - https
-    - config:
-        echo_downstream: true
-        generator: uuid
-        header_name: X-Request-ID
-      enabled: true
-      name: correlation-id
-      protocols:
-      - grpc
-      - grpcs
-      - http
-      - https
     - config:
         anonymous: null
         hide_credentials: true
@@ -911,17 +845,6 @@ services:
     #   - grpcs
     #   - http
     #   - https
-    - config:
-        echo_downstream: true
-        generator: uuid
-        header_name: X-Request-ID
-      enabled: true
-      name: correlation-id
-      protocols:
-      - grpc
-      - grpcs
-      - http
-      - https
     - config:
         anonymous: null
         hide_credentials: true
