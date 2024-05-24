@@ -40,32 +40,6 @@ services:
       - http
       - https
     - config:
-        content_type: application/json
-        custom_fields_by_lua: null
-        flush_timeout: null
-        headers: null
-        http_endpoint: http://logstash:7800/kong/extkong
-        keepalive: 1000
-        method: POST
-        queue:
-          initial_retry_delay: 0.01
-          max_batch_size: 1
-          max_bytes: null
-          max_coalescing_delay: 1
-          max_entries: 10000
-          max_retry_delay: 60
-          max_retry_time: 60
-        queue_size: null
-        retry_count: null
-        timeout: 1000
-      enabled: true
-      name: http-log
-      protocols:
-      - grpc
-      - grpcs
-      - http
-      - https
-    - config:
         accept_http_if_already_terminated: false
         anonymous: null
         auth_header_name: authorization
@@ -215,32 +189,6 @@ services:
       - http
       - https
     - config:
-        content_type: application/json
-        custom_fields_by_lua: null
-        flush_timeout: null
-        headers: null
-        http_endpoint: http://logstash:7800/kong/extkong
-        keepalive: 1000
-        method: POST
-        queue:
-          initial_retry_delay: 0.01
-          max_batch_size: 1
-          max_bytes: null
-          max_coalescing_delay: 1
-          max_entries: 10000
-          max_retry_delay: 60
-          max_retry_time: 60
-        queue_size: null
-        retry_count: null
-        timeout: 1000
-      enabled: true
-      name: http-log
-      protocols:
-      - grpc
-      - grpcs
-      - http
-      - https
-    - config:
         anonymous: null
         hide_credentials: true
         key_in_body: false
@@ -363,32 +311,6 @@ services:
         header_name: X-Request-ID
       enabled: true
       name: correlation-id
-      protocols:
-      - grpc
-      - grpcs
-      - http
-      - https
-    - config:
-        content_type: application/json
-        custom_fields_by_lua: null
-        flush_timeout: null
-        headers: null
-        http_endpoint: http://logstash:7800/kong/extkong
-        keepalive: 1000
-        method: POST
-        queue:
-          initial_retry_delay: 0.01
-          max_batch_size: 1
-          max_bytes: null
-          max_coalescing_delay: 1
-          max_entries: 10000
-          max_retry_delay: 60
-          max_retry_time: 60
-        queue_size: null
-        retry_count: null
-        timeout: 1000
-      enabled: true
-      name: http-log
       protocols:
       - grpc
       - grpcs
@@ -568,32 +490,6 @@ services:
       - http
       - https
     - config:
-        content_type: application/json
-        custom_fields_by_lua: null
-        flush_timeout: null
-        headers: null
-        http_endpoint: http://logstash:7800/kong/extkong
-        keepalive: 1000
-        method: POST
-        queue:
-          initial_retry_delay: 0.01
-          max_batch_size: 1
-          max_bytes: null
-          max_coalescing_delay: 1
-          max_entries: 10000
-          max_retry_delay: 60
-          max_retry_time: 60
-        queue_size: null
-        retry_count: null
-        timeout: 1000
-      enabled: true
-      name: http-log
-      protocols:
-      - grpc
-      - grpcs
-      - http
-      - https
-    - config:
         anonymous: null
         hide_credentials: true
         key_in_body: false
@@ -716,32 +612,6 @@ services:
         header_name: X-Request-ID
       enabled: true
       name: correlation-id
-      protocols:
-      - grpc
-      - grpcs
-      - http
-      - https
-    - config:
-        content_type: application/json
-        custom_fields_by_lua: null
-        flush_timeout: null
-        headers: null
-        http_endpoint: http://logstash:7800/kong/extkong
-        keepalive: 1000
-        method: POST
-        queue:
-          initial_retry_delay: 0.01
-          max_batch_size: 1
-          max_bytes: null
-          max_coalescing_delay: 1
-          max_entries: 10000
-          max_retry_delay: 60
-          max_retry_time: 60
-        queue_size: null
-        retry_count: null
-        timeout: 1000
-      enabled: true
-      name: http-log
       protocols:
       - grpc
       - grpcs
@@ -878,32 +748,6 @@ services:
         header_name: X-Request-ID
       enabled: true
       name: correlation-id
-      protocols:
-      - grpc
-      - grpcs
-      - http
-      - https
-    - config:
-        content_type: application/json
-        custom_fields_by_lua: null
-        flush_timeout: null
-        headers: null
-        http_endpoint: http://logstash:7800/kong/extkong
-        keepalive: 1000
-        method: POST
-        queue:
-          initial_retry_delay: 0.01
-          max_batch_size: 1
-          max_bytes: null
-          max_coalescing_delay: 1
-          max_entries: 10000
-          max_retry_delay: 60
-          max_retry_time: 60
-        queue_size: null
-        retry_count: null
-        timeout: 1000
-      enabled: true
-      name: http-log
       protocols:
       - grpc
       - grpcs
@@ -1073,32 +917,6 @@ services:
         header_name: X-Request-ID
       enabled: true
       name: correlation-id
-      protocols:
-      - grpc
-      - grpcs
-      - http
-      - https
-    - config:
-        content_type: application/json
-        custom_fields_by_lua: null
-        flush_timeout: null
-        headers: null
-        http_endpoint: http://logstash:7800/kong/extkong
-        keepalive: 1000
-        method: POST
-        queue:
-          initial_retry_delay: 0.01
-          max_batch_size: 1
-          max_bytes: null
-          max_coalescing_delay: 1
-          max_entries: 10000
-          max_retry_delay: 60
-          max_retry_time: 60
-        queue_size: null
-        retry_count: null
-        timeout: 1000
-      enabled: true
-      name: http-log
       protocols:
       - grpc
       - grpcs
